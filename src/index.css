@@ -1,0 +1,145 @@
+/* ============================================================
+   Tokens — three themes swap values, never layouts.
+   Signal colors (--good = "now", --warn = "special day / careful")
+   are defined per theme so they keep contrast on every ground.
+   ============================================================ */
+:root {
+  --gold: #d4af7a;
+  --gold-bright: #f0d9a8;
+  --gold-deep: #b8914f;
+  --bg-0: #0a0e1a;
+  --bg-1: #111a2e;
+  --bg-2: #18233d;
+  --bg-glass: rgba(24, 35, 61, 0.55);
+  --ink: #f4ecd8;
+  --ink-dim: #b9c2d6;
+  --ink-faint: #8a95ad;
+  --line: rgba(212, 175, 122, 0.22);
+  --good: #6fcf97;
+  --warn: #f2994a;
+  --scrim: rgba(5, 8, 16, 0.72);
+  --radius: 22px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --font-sans: 'Heebo', system-ui, sans-serif;
+  --font-serif: 'Frank Ruhl Libre', 'Noto Rashi Hebrew', Georgia, serif;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: dark;
+}
+
+/* Klaf (parchment) theme */
+:root[data-theme='parchment'] {
+  --bg-0: #e9dcc0;
+  --bg-1: #f3e8cf;
+  --bg-2: #fbf3df;
+  --bg-glass: rgba(251, 243, 223, 0.78);
+  --ink: #2b2112;
+  --ink-dim: #5a4a2c;
+  --ink-faint: #6e5f3e;
+  --line: rgba(120, 90, 40, 0.3);
+  --gold: #9a6b24;
+  --gold-bright: #7a5115;
+  --gold-deep: #c69a56;
+  --good: #1d6a3d;
+  --warn: #964307;
+  --scrim: rgba(43, 33, 18, 0.45);
+  --shadow: 0 20px 50px rgba(90, 70, 30, 0.22);
+  color-scheme: light;
+}
+
+/* Day (light) theme */
+:root[data-theme='light'] {
+  --bg-0: #eef1f7;
+  --bg-1: #f6f8fc;
+  --bg-2: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  --ink: #16203a;
+  --ink-dim: #41506f;
+  --ink-faint: #5a6884;
+  --line: rgba(40, 70, 130, 0.16);
+  --gold: #a9802f;
+  --gold-bright: #8a6413;
+  --gold-deep: #cda55f;
+  --good: #16703e;
+  --warn: #a04609;
+  --scrim: rgba(22, 32, 58, 0.4);
+  --shadow: 0 20px 50px rgba(40, 60, 110, 0.14);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(1200px 700px at 85% -10%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, var(--bg-0));
+  background-color: var(--bg-0);
+  color: var(--ink);
+  direction: rtl;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--gold-bright);
+}
+
+::selection { background: color-mix(in srgb, var(--gold) 35%, transparent); color: var(--ink); }
+
+#root { height: 100vh; }
+
+h1, h2, h3 { font: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+
+.glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+@keyframes fadeUp {
+  /* Starts already visible: if animation is throttled or skipped, the screen is still readable. */
+  from { opacity: 0.4; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.78; }
+}
+
+.fade-screen { animation: fadeUp 0.7s var(--ease-out) both; }
+
+/* Quiet: during tefillah (data-quiet) or when the viewer asked for reduced motion,
+   nothing on the board moves except the minutes changing. */
+:root[data-quiet] *,
+:root[data-quiet] *::before,
+:root[data-quiet] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

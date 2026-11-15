@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T09:24:46.128Z",
+  "title": "Design System: Luach Digitali",
+  "extensions": {
+    "colorMeta": {
+      "candle-gold": {
+        "role": "primary",
+        "displayName": "Candle Gold",
+        "canonical": "#d4af7a",
+        "tonalRamp": [
+          "#3a2c17",
+          "#5a4426",
+          "#7c5f37",
+          "#9f7c4a",
+          "#c09a62",
+          "#d4af7a",
+          "#e6cda3",
+          "#f6ead6"
+        ]
+      },
+      "candle-gold-bright": {
+        "role": "primary",
+        "displayName": "Candle Gold Bright",
+        "canonical": "#f0d9a8"
+      },
+      "candle-gold-deep": {
+        "role": "primary",
+        "displayName": "Candle Gold Deep",
+        "canonical": "#b8914f"
+      },
+      "now-green": {
+        "role": "secondary",
+        "displayName": "Now Green",
+        "canonical": "#6fcf97",
+        "tonalRamp": [
+          "#123323",
+          "#1d5137",
+          "#2b704d",
+          "#3d9165",
+          "#55b17f",
+          "#6fcf97",
+          "#a3e2bd",
+          "#d9f4e4"
+        ]
+      },
+      "festival-amber": {
+        "role": "tertiary",
+        "displayName": "Festival Amber",
+        "canonical": "#f2994a",
+        "tonalRamp": [
+          "#3d1f08",
+          "#60320f",
+          "#874818",
+          "#ad6025",
+          "#d27a35",
+          "#f2994a",
+          "#f8c08e",
+          "#fde6d1"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#0a0e1a",
+        "tonalRamp": [
+          "#0a0e1a",
+          "#111a2e",
+          "#18233d",
+          "#2a3858",
+          "#4a5a7c",
+          "#7f8aa3",
+          "#b9c2d6",
+          "#eef1f7"
+        ]
+      },
+      "night-deep": {
+        "role": "neutral",
+        "displayName": "Night Deep",
+        "canonical": "#111a2e"
+      },
+      "night-surface": {
+        "role": "neutral",
+        "displayName": "Night Surface",
+        "canonical": "#18233d"
+      },
+      "parchment-ink": {
+        "role": "neutral",
+        "displayName": "Parchment Ink",
+        "canonical": "#f4ecd8"
+      },
+      "slate-dim": {
+        "role": "neutral",
+        "displayName": "Slate Dim",
+        "canonical": "#b9c2d6"
+      },
+      "slate-faint": {
+        "role": "neutral",
+        "displayName": "Slate Faint",
+        "canonical": "#7f8aa3"
+      },
+      "klaf-ground": {
+        "role": "neutral",
+        "displayName": "Klaf Ground (parchment theme)",
+        "canonical": "#e9dcc0"
+      },
+      "klaf-surface": {
+        "role": "neutral",
+        "displayName": "Klaf Surface",
+        "canonical": "#fbf3df"
+      },
+      "klaf-ink": {
+        "role": "neutral",
+        "displayName": "Klaf Ink",
+        "canonical": "#2b2112"
+      },
+      "klaf-gold": {
+        "role": "primary",
+        "displayName": "Klaf Gold",
+        "canonical": "#9a6b24"
+      },
+      "day-ground": {
+        "role": "neutral",
+        "displayName": "Day Ground (light theme)",
+        "canonical": "#eef1f7"
+      },
+      "day-surface": {
+        "role": "neutral",
+        "displayName": "Day Surface",
+        "canonical": "#ffffff"
+      },
+      "day-ink": {
+        "role": "neutral",
+        "displayName": "Day Ink",
+        "canonical": "#16203a"
+      },
+      "day-gold": {
+        "role": "primary",
+        "displayName": "Day Gold",
+        "canonical": "#a9802f"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Header clock and Omer count; tabular numerals."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Screen titles, shul name, Hebrew date hero."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Column and card heads."
+      },
+      "scripture": {
+        "displayName": "Scripture",
+        "purpose": "Vocalized Torah texts; open leading for nikud."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Zman rows, prayer rows, announcements."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Location, day of week, captions."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-lift",
+        "value": "0 24px 60px rgba(0, 0, 0, 0.45)",
+        "purpose": "Every glass card (Night theme). Klaf: 0 20px 50px rgba(90,70,30,0.22). Day: 0 20px 50px rgba(40,60,110,0.14)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "screen-enter",
+        "value": "fadeUp 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), from opacity 0.4",
+        "purpose": "Each rotating screen rises 12px into place from an already-readable state."
+      },
+      {
+        "name": "text-fade",
+        "value": "fadeIn 1s ease",
+        "purpose": "Torah text body."
+      },
+      {
+        "name": "ticker",
+        "value": "linear, duration from text length (~7 chars/s)",
+        "purpose": "Seamless two-copy loop; static during quiet mode."
+      },
+      {
+        "name": "glow",
+        "value": "4s ease-in-out infinite, opacity 1→0.78",
+        "purpose": "Yahrzeit flame only."
+      },
+      {
+        "name": "quiet",
+        "value": "[data-quiet] / prefers-reduced-motion: animation none",
+        "purpose": "Board goes still during tefillah."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-bar",
+        "value": "1100px"
+      },
+      {
+        "name": "narrow",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "glass-card",
+      "description": "The basic surface for all board content.",
+      "html": "<div class=\"ds-glass\" dir=\"rtl\"><div class=\"ds-glass-head\">זמני תפילות</div><div class=\"ds-glass-body\">שחרית · מנחה · ערבית</div></div>",
+      "css": ".ds-glass { background: rgba(24, 35, 61, 0.55); border: 1px solid rgba(212, 175, 122, 0.22); border-radius: 22px; backdrop-filter: blur(14px); box-shadow: 0 24px 60px rgba(0,0,0,0.45); padding: 22px; color: #f4ecd8; font-family: Heebo, system-ui, sans-serif; } .ds-glass-head { font-family: 'Frank Ruhl Libre', Georgia, serif; font-weight: 700; font-size: 24px; color: #f0d9a8; padding-bottom: 10px; margin-bottom: 8px; border-bottom: 1px solid rgba(212, 175, 122, 0.22); } .ds-glass-body { color: #b9c2d6; font-size: 18px; }"
+    },
+    {
+      "name": "Zman Row",
+      "kind": "custom",
+      "description": "Label, dotted gold leader, tabular time; the next zman is washed in gold.",
+      "html": "<ul class=\"ds-zl\" dir=\"rtl\"><li class=\"ds-zr\"><span class=\"ds-zl-label\">הנץ החמה</span><span class=\"ds-zl-dots\"></span><span class=\"ds-zl-time\">06:12</span></li><li class=\"ds-zr ds-next\"><span class=\"ds-zl-label\">סו״ז ק״ש (גר״א)</span><span class=\"ds-zl-dots\"></span><span class=\"ds-zl-time\">09:01</span></li></ul>",
+      "css": ".ds-zl { list-style: none; margin: 0; padding: 0; font-family: Heebo, system-ui, sans-serif; background: #111a2e; padding: 12px; border-radius: 16px; } .ds-zr { display: flex; align-items: center; gap: 10px; padding: 10px 4px; font-size: 22px; } .ds-zl-label { color: #b9c2d6; white-space: nowrap; } .ds-zl-dots { flex: 1; border-bottom: 2px dotted rgba(212,175,122,0.22); margin: 0 6px; transform: translateY(-4px); } .ds-zl-time { font-weight: 700; font-variant-numeric: tabular-nums; color: #f4ecd8; min-width: 70px; text-align: left; } .ds-next { background: linear-gradient(90deg, rgba(212,175,122,0.18), transparent); border-radius: 12px; padding-right: 12px; } .ds-next .ds-zl-label, .ds-next .ds-zl-time { color: #f0d9a8; font-weight: 700; }"
+    },
+    {
+      "name": "Gold Chip",
+      "kind": "chip",
+      "refersTo": "chip-gold",
+      "description": "Pill badge for holiday, parsha category, date facts. Amber and green variants carry fixed meanings.",
+      "html": "<div dir=\"rtl\" style=\"display:flex;gap:8px;background:#0a0e1a;padding:12px\"><span class=\"ds-chip\">פרשת וירא</span><span class=\"ds-chip ds-chip-yt\">יום טוב</span><span class=\"ds-chip ds-chip-omer\">ספירת העומר</span></div>",
+      "css": ".ds-chip { display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(212,175,122,0.16); border: 1px solid #d4af7a; color: #f0d9a8; font-weight: 700; font-size: 15px; font-family: Heebo, system-ui, sans-serif; } .ds-chip-yt { background: rgba(242,153,74,0.18); border-color: #f2994a; color: #f2994a; } .ds-chip-omer { background: rgba(111,207,151,0.14); border-color: #6fcf97; color: #6fcf97; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid gold-bright action in the settings panel (Done).",
+      "html": "<button class=\"ds-btn-primary\">סיום</button>",
+      "css": ".ds-btn-primary { padding: 11px 32px; border-radius: 12px; border: none; background: #f0d9a8; color: #18233d; font-weight: 800; font-size: 16px; font-family: Heebo, system-ui, sans-serif; cursor: pointer; transition: filter 0.2s; } .ds-btn-primary:hover { filter: brightness(1.08); } .ds-btn-primary:focus-visible { outline: 2px solid #f0d9a8; outline-offset: 3px; }"
+    },
+    {
+      "name": "Add Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Dashed ghost button for adding rows in editors.",
+      "html": "<button class=\"ds-btn-add\">+ הוספת תפילה</button>",
+      "css": ".ds-btn-add { padding: 11px 20px; border-radius: 12px; background: #18233d; border: 1px dashed #d4af7a; color: #f0d9a8; font-weight: 700; font-size: 16px; font-family: Heebo, system-ui, sans-serif; cursor: pointer; } .ds-btn-add:hover { background: rgba(212,175,122,0.1); } .ds-btn-add:focus-visible { outline: 2px solid #f0d9a8; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Settings field; gold border on focus.",
+      "html": "<input class=\"ds-input\" dir=\"rtl\" value=\"בית הכנסת אוהל משה\" />",
+      "css": ".ds-input { background: #0a0e1a; border: 1px solid rgba(212,175,122,0.22); border-radius: 10px; padding: 11px 14px; color: #f4ecd8; font-family: Heebo, system-ui, sans-serif; font-size: 16px; width: 260px; } .ds-input:focus, .ds-input:focus-visible { outline: none; border-color: #d4af7a; }"
+    },
+    {
+      "name": "Screen Dots",
+      "kind": "nav",
+      "description": "Rotation indicator; the active dot stretches into a gold pill.",
+      "html": "<div class=\"ds-dots\"><button class=\"ds-dot\"></button><button class=\"ds-dot ds-dot-on\"></button><button class=\"ds-dot\"></button></div>",
+      "css": ".ds-dots { display: flex; gap: 10px; padding: 12px; background: #0a0e1a; } .ds-dot { width: 12px; height: 12px; border-radius: 999px; background: rgba(212,175,122,0.22); border: 1px solid #b8914f; transition: all 0.3s; cursor: pointer; padding: 0; } .ds-dot-on { background: #f0d9a8; width: 34px; } .ds-dot:focus-visible { outline: 2px solid #f0d9a8; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Luach",
+    "overview": "The board is the printed synagogue luach that once hung by the door, now keeping time on its own. It keeps the authority of the printed calendar: ordered columns, dotted leaders running from each zman's name to its time, serif Hebrew headings, nothing ambiguous. On top of that it keeps time live: the next zman is highlighted, the clock ticks, a countdown runs to the next tefillah, and the screens rotate without anyone touching them.\n\nDensity is that of a reference sheet, scaled for distance. Every size is fluid (`clamp()` tied to viewport width or height), because the same layout must work on a 75\" wall TV read from the back row and on a lobby monitor read from a meter away. The look sits in three equivalent themes: **Night** (deep navy, candle gold), **Klaf** (warm parchment, brown-gold ink) and **Day** (cool white, muted gold). Every theme uses the same tokens under different values; no screen may assume one theme.\n\nOrnament is restrained and comes from the content: Hebrew serif lettering, gold hairlines and dotted leaders. There are no emoji or pictogram section marks; the few icons (kiosk controls, delete, yahrzeit flame) are drawn SVG in one stroke weight. The look serves reading. Where correctness and effect pull in different directions, correctness wins.",
+    "keyCharacteristics": [
+      "Fluid, distance-first type scale; everything sized with `clamp()`.",
+      "Frosted-glass cards on a dark gradient ground, with gold hairline borders.",
+      "Gold is the one voice; green means \"now\", amber means \"festival/memorial\". Both are re-tuned per theme.",
+      "The next tefillah, not the clock, is the largest time on the board.",
+      "The board goes still during tefillah (quiet mode).",
+      "Serif Hebrew (Frank Ruhl Libre) for names and headings; Heebo for times and labels.",
+      "Tabular numerals on every time.",
+      "Three themes that swap token values, never layouts."
+    ],
+    "rules": [
+      {
+        "name": "The One Candle Rule",
+        "body": "Gold is the only decorative accent. Green and amber are never decoration; each carries one fixed meaning (now / special day).",
+        "section": "colors"
+      },
+      {
+        "name": "The Bright-Means-Prominent Rule",
+        "body": "Always use `--gold-bright` for the most important value, never a hard-coded light gold. In Klaf and Day it resolves darker, which keeps contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Time Rule",
+        "body": "Every clock or time value uses `font-variant-numeric: tabular-nums` and weight 700 or above, so columns of times align and stay legible across the room.",
+        "section": "typography"
+      },
+      {
+        "name": "The Name-the-Opinion Rule",
+        "body": "Every zman that depends on a shita carries it as a small faint tag after the label (16.1°, מג״א, גר״א, 8.5°, ר״ת 72 דק׳). Shabbat and Yom Tov times carry their rule (20 דק׳ לפני השקיעה, שקיעה + 30 דק׳).",
+        "section": "typography"
+      },
+      {
+        "name": "The Serif-for-Names Rule",
+        "body": "Names of things (screens, tefillot, parsha, the shul, people remembered) are serif; times, counts and UI labels are sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Fill-the-Frame Rule",
+        "body": "A board screen never scrolls on the TV. Content scales into the stage; only the settings panel and long memorial lists may scroll.",
+        "section": "layout"
+      },
+      {
+        "name": "The Single Plane Rule",
+        "body": "All cards sit at the same elevation. Hierarchy comes from tint, gold text and size, not from stacking shadows.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do size every board element with `clamp()` so it reads at both wall-TV and lobby distance.",
+      "Do use `tabular-nums` and weight ≥700 on every time.",
+      "Do reach for `--gold-bright` for the one most important value on a screen.",
+      "Do keep the zman label → dotted leader → time pattern for any list of times.",
+      "Do test every new screen in all three themes (Night, Klaf, Day).",
+      "Do keep motion slow: screens enter with a 0.7s `fadeUp` that starts at 40% opacity, text fades in over 1s, and the yahrzeit flame glows over a 4s cycle. Everything stops in quiet mode.",
+      "Do derive every tint from a token with `color-mix`."
+    ],
+    "donts": [
+      "Don't use Now Green or Festival Amber as decoration; they mean \"now\" and \"special day\".",
+      "Don't hard-code navy or light-gold hex values in components; go through the CSS variables so themes keep working.",
+      "Don't let a board screen scroll or overflow the stage.",
+      "Don't use emoji or Unicode glyphs as icons, and don't use gradient text.",
+      "Don't pulse or blink anything on a 1 s cycle.",
+      "Don't put essential information behind hover or touch; the board must work with no interaction (Shabbat)."
+    ]
+  }
+}

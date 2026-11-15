@@ -1,0 +1,18 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+
+# Build output: installers, MSI, unpacked app (rebuild with npm run msi / electron:build)
+release/
+*.wixpdb
+*.tsbuildinfo
+
+# Local tool state
+.impeccable/hook.cache.json
+.impeccable/live/
+
+# Reference material from another vendor (manual and brochure) — not part of this project's source
+guide.pdf
+look.pdf

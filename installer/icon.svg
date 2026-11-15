@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18233d"/>
+      <stop offset="1" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0d9a8"/>
+      <stop offset="1" stop-color="#d4af7a"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="url(#bg)"/>
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="none" stroke="#d4af7a" stroke-opacity=".55" stroke-width="6"/>
+  <!-- tablet-shaped board with a flame: a luach that keeps a light -->
+  <path d="M128 40c22 30 40 50 40 78a40 40 0 0 1-80 0c0-18 10-30 18-42 1 18 7 26 14 26 0-24-2-40 8-62z" fill="url(#flame)"/>
+  <rect x="70" y="176" width="116" height="14" rx="7" fill="#d4af7a"/>
+  <rect x="90" y="198" width="76" height="10" rx="5" fill="#d4af7a" fill-opacity=".6"/>
+</svg>

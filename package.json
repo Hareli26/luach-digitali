@@ -1,0 +1,68 @@
+{
+  "name": "luach-digitali",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "לוח דיגיטלי לבית כנסת - Digital Synagogue Board",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron:dev": "electron .",
+    "electron:preview": "cross-env ELECTRON_LOAD_DIST=1 electron .",
+    "electron:build": "npm run build && electron-builder",
+    "electron:dir": "npm run build && electron-builder --win dir --config.win.signAndEditExecutable=false",
+    "msi": "npm run electron:dir && cmd /c installer\\build-msi.cmd"
+  },
+  "dependencies": {
+    "@hebcal/core": "^6.16.0",
+    "@hebcal/learning": "^6.13.1",
+    "@hebcal/leyning": "^10.1.0",
+    "kosher-zmanim": "^0.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "build": {
+    "appId": "com.luach.digitali",
+    "productName": "Luach Digitali",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "לוח דיגיטלי"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility"
+    }
+  }
+}
