@@ -4,6 +4,7 @@ import { useClock } from './hooks/useClock'
 import Header from './components/Header'
 import BottomBar from './components/BottomBar'
 import SettingsPanel from './components/SettingsPanel'
+import { BackdropCaption, BackdropLayer, useBackdrop } from './components/Backdrop'
 import ZmanimScreen from './screens/ZmanimScreen'
 import PrayersScreen from './screens/PrayersScreen'
 import DateScreen from './screens/DateScreen'
@@ -91,6 +92,11 @@ export default function App() {
   useEffect(() => {
     document.documentElement.toggleAttribute('data-quiet', quiet)
   }, [quiet])
+
+  const backdrop = useBackdrop(now, kind, quiet)
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-backdrop', !!backdrop.shown)
+  }, [backdrop.shown])
 
   // Seasonal / data-driven availability, recomputed each minute.
   const avail = useMemo(() => {
@@ -223,6 +229,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <BackdropLayer state={backdrop} />
     <div className="app">
       <Header now={now} />
 
@@ -235,9 +243,12 @@ export default function App() {
 
       {/* Strip between stage and bottom bar: rotation status, screen dots, controls. Never over content. */}
       <div className="strip">
-        <span className="strip-status" role="status">
-          {frozenOn ? `${inPrayer?.label} · הלוח מוצג קבוע בזמן התפילה` : paused ? 'הסבב מושהה' : ''}
-        </span>
+        <div className="strip-start">
+          <span className="strip-status" role="status">
+            {frozenOn ? `${inPrayer?.label} · הלוח מוצג קבוע בזמן התפילה` : paused ? 'הסבב מושהה' : ''}
+          </span>
+          {!frozenOn && !paused && <BackdropCaption state={backdrop} />}
+        </div>
         <nav className="dots" aria-label="מסכי הלוח">
           {rotation.map((k, i) => (
             <button
@@ -294,6 +305,7 @@ export default function App() {
 
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
     </div>
+    </>
   )
 }
 

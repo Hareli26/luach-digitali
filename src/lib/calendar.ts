@@ -68,6 +68,12 @@ function matchesKey(ev: HEvent, key: string): boolean {
   return opt.match.some((m) => d.startsWith(m)) && !d.startsWith('Erev')
 }
 
+/** HOLIDAY_OPTIONS keys that fall on the Hebrew day in effect right now. */
+export function activeHolidayKeys(s: Settings, now = new Date()): string[] {
+  const evs = holidaysOn(hdNow(s, now), s.israel)
+  return HOLIDAY_OPTIONS.filter((h) => evs.some((e) => matchesKey(e, h.key))).map((h) => h.key)
+}
+
 export interface HolidayWindow {
   key: string
   /** first civil day of the holiday */

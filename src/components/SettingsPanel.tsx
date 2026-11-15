@@ -11,6 +11,7 @@ import { DECORS, SCREENS } from '../screenRegistry'
 import { ANN_STYLES } from '../screens/AnnouncementsScreen'
 import { addImages, removeImage, useImages } from '../lib/images'
 import { migrate } from '../settings'
+import { PLACES, PLACE_NAMES } from '../lib/places'
 
 const CITIES: { name: string; lat: number; lng: number; elevation: number }[] = [
   { name: 'ירושלים', lat: 31.7781, lng: 35.2354, elevation: 754 },
@@ -282,6 +283,8 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
                 </div>
               </Field>
 
+              <BackdropSettings />
+
               <BackupTools />
 
               {confirmReset ? (
@@ -327,6 +330,46 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </div>
+  )
+}
+
+/** Holy-place photographs behind the board, and the credits their licenses require. */
+function BackdropSettings() {
+  const { settings, update } = useSettings()
+  const bd = settings.backdrop
+  const set = (patch: Partial<typeof bd>) => update({ backdrop: { ...bd, ...patch } })
+  return (
+    <>
+      <h3 className="set-sub">רקע: מקומות קדושים</h3>
+      <label className="switch-row">
+        <input type="checkbox" checked={bd.enabled} onChange={(e) => set({ enabled: e.target.checked })} />
+        <span>להציג מאחורי הלוח תמונה של מקום קדוש</span>
+      </label>
+      <Field label="החלפת תמונה" hint="בזמן תפילה התמונה לא מתחלפת.">
+        <select value={bd.minutes} disabled={!bd.enabled} onChange={(e) => set({ minutes: Number(e.target.value) })}>
+          {[2, 5, 10, 15, 30].map((m) => (
+            <option key={m} value={m}>
+              כל {m} דקות
+            </option>
+          ))}
+        </select>
+      </Field>
+      <div className="hint">
+        בחג מוצג המקום הקשור לחג (סוכות: הכותל, ל״ג בעומר: מירון, שבועות: מדבר סיני). בשבת מתחלפים המקום של פרשת השבוע, צפת, החורבה והכותל. בימות החול כל המקומות מתחלפים, ובכל החלפה שלישית חוזר המקום של הפרשה.
+      </div>
+      {PLACES.length > 0 && (
+        <details className="place-credits">
+          <summary>קרדיטים לתמונות ({PLACES.length})</summary>
+          <ul>
+            {PLACES.map((p) => (
+              <li key={p.key}>
+                <span className="place-credits-name">{PLACE_NAMES[p.key]}</span>: <bdi>{p.author}</bdi>, <bdi>{p.license}</bdi>, Wikimedia Commons
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </>
   )
 }
 

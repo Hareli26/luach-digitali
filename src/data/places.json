@@ -1,0 +1,129 @@
+[
+  {
+    "key": "kotel",
+    "file": "kotel.jpg",
+    "title": "File:Western Wall at night (20063).jpg",
+    "author": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Western_Wall_at_night_(20063).jpg"
+  },
+  {
+    "key": "machpela",
+    "file": "machpela.jpg",
+    "title": "File:Hebron Cave of the Patriarchs.jpg",
+    "author": "Djampa",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hebron_Cave_of_the_Patriarchs.jpg"
+  },
+  {
+    "key": "kever-rachel",
+    "file": "kever-rachel.jpg",
+    "title": "File:Tomb of Rachel, Jerusalem, Holy Land-LCCN2002725025.jpg",
+    "author": "Library of Congress",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomb_of_Rachel,_Jerusalem,_Holy_Land-LCCN2002725025.jpg",
+    "position": "35% 50%"
+  },
+  {
+    "key": "tzfat",
+    "file": "tzfat.jpg",
+    "title": "File:The old city of Safed (14673002704).jpg",
+    "author": "Jesse Davis",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_old_city_of_Safed_(14673002704).jpg"
+  },
+  {
+    "key": "meron",
+    "file": "meron.jpg",
+    "title": "File:Akbarah Hiking trail, view of har meron and nahal amud - panoramio.jpg",
+    "author": "yfrimer",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Akbarah_Hiking_trail,_view_of_har_meron_and_nahal_amud_-_panoramio.jpg",
+    "position": "50% 35%"
+  },
+  {
+    "key": "shiloh",
+    "file": "shiloh.jpg",
+    "title": "File:Ancient Shiloh 2019 04.jpg",
+    "author": "Laliv g",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ancient_Shiloh_2019_04.jpg"
+  },
+  {
+    "key": "sinai",
+    "file": "sinai.jpg",
+    "title": "File:Mount Sinai morning 03.jpg",
+    "author": "Abraham",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mount_Sinai_morning_03.jpg"
+  },
+  {
+    "key": "nevo",
+    "file": "nevo.jpg",
+    "title": "File:Jordanien Mount Nebo 6.JPG",
+    "author": "Zairon",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jordanien_Mount_Nebo_6.JPG"
+  },
+  {
+    "key": "yarden",
+    "file": "yarden.jpg",
+    "title": "File:Yardenit, Degania, Jordan river 2.jpg",
+    "author": "עומר מרקובסקי",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yardenit,_Degania,_Jordan_river_2.jpg",
+    "position": "30% 50%"
+  },
+  {
+    "key": "grizim",
+    "file": "grizim.jpg",
+    "title": "File:Mount Gerizim View IMG 1764.JPG",
+    "author": "Deror_avi",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mount_Gerizim_View_IMG_1764.JPG",
+    "position": "50% 35%"
+  },
+  {
+    "key": "tiberias",
+    "file": "tiberias.jpg",
+    "title": "File:Israel Sunrise over Sea of Galilee from Scots Hotel, Tiberias (15604871533).jpg",
+    "author": "Grant Barclay",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Israel_Sunrise_over_Sea_of_Galilee_from_Scots_Hotel,_Tiberias_(15604871533).jpg",
+    "position": "50% 40%"
+  },
+  {
+    "key": "hurva",
+    "file": "hurva.jpg",
+    "title": "File:Hurva Synagogue at night 2.jpg",
+    "author": "Yairar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hurva_Synagogue_at_night_2.jpg",
+    "position": "70% 50%"
+  },
+  {
+    "key": "jerusalem",
+    "file": "jerusalem.jpg",
+    "title": "File:Jerusalem walls night 3.JPG",
+    "author": "Adiel lo",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_walls_night_3.JPG",
+    "position": "30% 60%"
+  },
+  {
+    "key": "tzin",
+    "file": "tzin.jpg",
+    "title": "File:Israel-2013-Ein Avdat 02.jpg",
+    "author": "Godot13",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Israel-2013-Ein_Avdat_02.jpg"
+  },
+  {
+    "key": "esther",
+    "file": "esther.jpg",
+    "title": "File:آرامگاه استر و مردخای.jpg",
+    "author": "محمدرضا شعبانی",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%D8%A2%D8%B1%D8%A7%D9%85%DA%AF%D8%A7%D9%87_%D8%A7%D8%B3%D8%AA%D8%B1_%D9%88_%D9%85%D8%B1%D8%AF%D8%AE%D8%A7%DB%8C.jpg"
+  }
+]

@@ -141,6 +141,8 @@ export interface Settings {
   refua: { id: string; name: string }[]
   /** Background design per screen (see DECORS); missing = the screen's default */
   screenDecor: Record<string, string>
+  /** Photographs of holy places behind the board, chosen by holiday, Shabbat and parsha */
+  backdrop: { enabled: boolean; minutes: number }
   /** Display on/off by hour */
   power: { enabled: boolean; hours: boolean[]; shabbatAlwaysOn: boolean }
 }

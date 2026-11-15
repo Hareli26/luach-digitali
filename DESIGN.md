@@ -199,6 +199,9 @@ Below 760px wide everything collapses to a single column; this is a fallback, no
 
 Layered glass. Cards are translucent navy (`--bg-glass`) with `backdrop-filter: blur(14px)`, a gold hairline border and a deep ambient shadow, floating over a ground made of a diagonal navy gradient lit by two soft radial glows (gold top-right, faint green bottom-left). Highlight cards (Shabbat, Text, Omer, yahrzeit) add a 160° tint gradient of their signal color into the glass.
 
+### Holy-Place Backdrop
+Under the whole board, a photograph of a holy place (`public/places/`, credits in `src/data/places.json`) replaces the plain ground. It is chosen by the calendar (holiday → its place, Shabbat → the parsha's place alternating with Tzfat, the Hurva and the Kotel, weekdays → all places with the parsha's every third change), changes every few minutes with a 3.5 s crossfade, and never changes during tefillah. A vertical veil of `--bg-0` (heavier at top and bottom, where the clock and next tefillah sit) and a denser `--bg-glass` keep every time at full contrast; Klaf tints the photo sepia. The place name, the reason ("פרשת …", the holiday) and the photographer's credit sit at the start of the strip.
+
 ### Shadow Vocabulary
 - **Ambient lift** (`0 24px 60px rgba(0,0,0,0.45)`; Klaf `0 20px 50px rgba(90,70,30,0.22)`; Day `0 20px 50px rgba(40,60,110,0.14)`): every `.glass` card.
 - **Kotel glow** (`drop-shadow(0 0 10px rgba(212,175,122,0.6))`): only the centre glyph of the compass.
