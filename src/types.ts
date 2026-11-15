@@ -143,6 +143,8 @@ export interface Settings {
   screenDecor: Record<string, string>
   /** Photographs of holy places behind the board, chosen by holiday, Shabbat and parsha */
   backdrop: { enabled: boolean; minutes: number }
+  /** Direction of prayer as seen by someone facing the screen, degrees clockwise: 0 = ahead (beyond the screen), 90 = right, 180 = behind, 270 = left. null = not set. */
+  prayerArrow: number | null
   /** Display on/off by hour */
   power: { enabled: boolean; hours: boolean[]; shabbatAlwaysOn: boolean }
 }

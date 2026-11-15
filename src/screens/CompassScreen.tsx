@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSettings } from '../settings'
 import { bearingToJerusalem, distanceToJerusalem, compassLabel } from '../lib/geo'
+import { ARROW_LABELS, PrayerArrow } from '../components/PrayerArrow'
 
 export default function CompassScreen() {
   const { settings } = useSettings()
@@ -27,6 +28,7 @@ export default function CompassScreen() {
   const needleRotation = bearing + roseRotation
 
   const nearJerusalem = dist < 2
+  const arrow = settings.prayerArrow
 
   return (
     <div className="screen fade-screen compass-screen">
@@ -36,6 +38,15 @@ export default function CompassScreen() {
       </h2>
 
       <div className="compass-wrap">
+        {arrow != null ? (
+          <div className="compass pray-dial glass">
+            <PrayerArrow angle={arrow} className="pray-dial-arrow" />
+            <div className="pray-dial-label">
+              <span className="pray-dial-kicker">פונים בתפילה</span>
+              {ARROW_LABELS[arrow]}
+            </div>
+          </div>
+        ) : (
         <div className="compass glass">
           <svg viewBox="0 0 400 400" className="compass-svg">
             <defs>
@@ -87,6 +98,7 @@ export default function CompassScreen() {
           </svg>
 
         </div>
+        )}
 
         <div className="compass-info">
           <div className="compass-stat glass">
@@ -100,11 +112,13 @@ export default function CompassScreen() {
             <div className="cs-sub">ק״מ</div>
           </div>
           <div className="compass-note glass">
-            {heading != null
-              ? 'המצפן מכויל לפי חיישן המכשיר'
-              : nearJerusalem
-                ? 'אתם בירושלים — מול הר הבית'
-                : 'החץ הזהוב מצביע לכיוון ירושלים ביחס לצפון האמיתי'}
+            {arrow != null
+              ? 'החץ מראה לאן לפנות, למי שעומד מול המסך'
+              : heading != null
+                ? 'המצפן מכויל לפי חיישן המכשיר'
+                : nearJerusalem
+                  ? 'אתם בירושלים, מול הר הבית'
+                  : 'החץ הזהוב מצביע לכיוון ירושלים ביחס לצפון האמיתי'}
           </div>
         </div>
       </div>

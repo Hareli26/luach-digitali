@@ -58,6 +58,7 @@ export const DEFAULT_SETTINGS: Settings = {
   refua: [],
   screenDecor: {},
   backdrop: { enabled: true, minutes: 5 },
+  prayerArrow: null,
   power: { enabled: false, hours: Array(24).fill(true), shabbatAlwaysOn: true },
   announcements: [
     { id: 'a1', title: 'שיעור הרב', body: 'שיעור בהלכה בכל יום שלישי בשעה 20:30 באולם המרכזי' },

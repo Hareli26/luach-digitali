@@ -12,6 +12,7 @@ import { ANN_STYLES } from '../screens/AnnouncementsScreen'
 import { addImages, removeImage, useImages } from '../lib/images'
 import { migrate } from '../settings'
 import { PLACES, PLACE_NAMES } from '../lib/places'
+import { ARROW_LABELS, PrayerArrow } from './PrayerArrow'
 
 const CITIES: { name: string; lat: number; lng: number; elevation: number }[] = [
   { name: 'ירושלים', lat: 31.7781, lng: 35.2354, elevation: 754 },
@@ -195,6 +196,8 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
                 </div>
               </details>
 
+              <PrayerArrowSettings />
+
               <label className="switch-row">
                 <input type="checkbox" checked={settings.israel} onChange={(e) => update({ israel: e.target.checked })} />
                 <span>מנהג ארץ ישראל (יום טוב אחד, פרשיות א״י)</span>
@@ -334,6 +337,36 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
 }
 
 /** Holy-place photographs behind the board, and the credits their licenses require. */
+/** 3×3 pad: the arrow a congregant facing the screen should follow. Centre clears it. */
+function PrayerArrowSettings() {
+  const { settings, update } = useSettings()
+  const cur = settings.prayerArrow
+  // Visual order of the pad, row by row (RTL grid, so list right-to-left within each row).
+  const pad: (number | 'none')[] = [45, 0, 315, 90, 'none', 270, 135, 180, 225]
+  return (
+    <div className="field">
+      <span className="field-label" id="pray-dir-label">כיוון התפילה ביחס למסך</span>
+      <div className="dir-pad" role="group" aria-labelledby="pray-dir-label">
+        {pad.map((v) =>
+          v === 'none' ? (
+            <button key="none" type="button" className={cur == null ? 'dir-btn none active' : 'dir-btn none'} aria-pressed={cur == null} onClick={() => update({ prayerArrow: null })}>
+              ללא
+            </button>
+          ) : (
+            <button key={v} type="button" className={cur === v ? 'dir-btn active' : 'dir-btn'} aria-pressed={cur === v} aria-label={ARROW_LABELS[v]} title={ARROW_LABELS[v]} onClick={() => update({ prayerArrow: v })}>
+              <PrayerArrow angle={v} className="dir-btn-arrow" />
+            </button>
+          ),
+        )}
+      </div>
+      <div className="hint">
+        עמדו מול המסך ובחרו לאן פונים בתפילה (לכיוון ארון הקודש). החץ יוצג בראש הלוח ובמסך ״כיוון לירושלים״.
+        {cur != null && <> נבחר: {ARROW_LABELS[cur]}.</>}
+      </div>
+    </div>
+  )
+}
+
 function BackdropSettings() {
   const { settings, update } = useSettings()
   const bd = settings.backdrop

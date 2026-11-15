@@ -2,6 +2,7 @@ import { useSettings } from '../settings'
 import { getHebrewDate } from '../lib/zmanim'
 import { NUSACH_LABELS } from '../types'
 import { useMemo } from 'react'
+import { ARROW_LABELS, PrayerArrow } from './PrayerArrow'
 
 export default function Header({ now }: { now: Date }) {
   const { settings } = useSettings()
@@ -22,6 +23,12 @@ export default function Header({ now }: { now: Date }) {
         <div className="hdr-shul">{settings.synagogueName}</div>
         <div className="hdr-loc">
           {settings.locationName} · נוסח {NUSACH_LABELS[settings.nusach]}
+          {settings.prayerArrow != null && (
+            <span className="hdr-pray" aria-label={`כיוון התפילה: ${ARROW_LABELS[settings.prayerArrow] ?? ''}`}>
+              <PrayerArrow angle={settings.prayerArrow} className="hdr-pray-arrow" />
+              כיוון התפילה
+            </span>
+          )}
         </div>
       </div>
 
