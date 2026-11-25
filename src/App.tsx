@@ -5,6 +5,9 @@ import Header from './components/Header'
 import BottomBar from './components/BottomBar'
 import SettingsPanel from './components/SettingsPanel'
 import { BackdropCaption, BackdropLayer, useBackdrop } from './components/Backdrop'
+import AlertOverlay from './components/AlertOverlay'
+import { useRedAlert } from './hooks/useRedAlert'
+import { simulate } from './lib/alerts'
 import ZmanimScreen from './screens/ZmanimScreen'
 import PrayersScreen from './screens/PrayersScreen'
 import DateScreen from './screens/DateScreen'
@@ -75,6 +78,8 @@ export default function App() {
   /** A key pressed during off hours wakes the board for 10 minutes. */
   const [wakeUntil, setWakeUntil] = useState(0)
   const images = useImages()
+  const { alert: redAlert, status: alertFeed } = useRedAlert(settings)
+  const alertShown = redAlert.phase !== 'idle'
 
   const minuteKey = Math.floor(now.getTime() / 60000)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -195,6 +200,8 @@ export default function App() {
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
       setWakeUntil(Date.now() + 10 * 60000)
+      // Escape ends a simulation; a real alert cannot be dismissed from the keyboard.
+      if (ev.key === 'Escape' && alertShown && redAlert.simulated) simulate('stop')
       if (ev.key === 'Escape') {
         setShowSettings(false)
         setShowHelp(false)
@@ -218,9 +225,13 @@ export default function App() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rotation, showSettings])
+  }, [rotation, showSettings, alertShown, redAlert.simulated])
+
+  const overlay = <AlertOverlay alert={redAlert} now={now} timeZone={settings.timeZone} shelterNote={settings.redAlert.shelterNote} />
 
   if (isPoweredOff(settings, now, kind) && now.getTime() > wakeUntil && !showSettings) {
+    // An alert lights a dark board too.
+    if (alertShown) return overlay
     return (
       <div className="power-off" onClick={() => setWakeUntil(Date.now() + 10 * 60000)}>
         <span className="power-off-clock">{now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: settings.timeZone })}</span>
@@ -247,6 +258,11 @@ export default function App() {
           <span className="strip-status" role="status">
             {frozenOn ? `${inPrayer?.label} · הלוח מוצג קבוע בזמן התפילה` : paused ? 'הסבב מושהה' : ''}
           </span>
+          {alertFeed.state === 'error' && (
+            <span className="strip-alert-off" title={alertFeed.detail}>
+              אין קשר להתרעות פיקוד העורף
+            </span>
+          )}
           {!frozenOn && !paused && <BackdropCaption state={backdrop} />}
         </div>
         <nav className="dots" aria-label="מסכי הלוח">
@@ -303,8 +319,9 @@ export default function App() {
         </div>
       )}
 
-      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} feedStatus={alertFeed} />}
     </div>
+    {overlay}
     </>
   )
 }

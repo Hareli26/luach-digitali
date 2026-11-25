@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut, powerSaveBlocker, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, globalShortcut, powerSaveBlocker, Menu, ipcMain, net } = require('electron')
 const path = require('path')
 const fs = require('fs')
 
@@ -33,6 +33,34 @@ ipcMain.on('luach:seed', (e) => {
     e.returnValue = { json: fs.readFileSync(SEED_FILE, 'utf8'), mtime: stat.mtimeMs }
   } catch {
     e.returnValue = null
+  }
+})
+
+/**
+ * Home Front Command alerts. The board polls through here because the feed expects the headers its
+ * own site sends and does not allow requests from other web pages (CORS). Only http(s) GETs, no body.
+ */
+const OREF_HEADERS = {
+  Referer: 'https://www.oref.org.il/',
+  'X-Requested-With': 'XMLHttpRequest',
+  Accept: 'application/json, text/javascript, */*; q=0.01',
+  'Accept-Language': 'he-IL,he;q=0.9',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
+}
+ipcMain.handle('luach:oref', async (_e, url) => {
+  const target = typeof url === 'string' && /^https?:\/\//i.test(url) ? url : 'https://www.oref.org.il/WarningMessages/alert/alerts.json'
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), 5000)
+  try {
+    const res = await net.fetch(target, { headers: OREF_HEADERS, cache: 'no-store', signal: ctrl.signal })
+    const buf = Buffer.from(await res.arrayBuffer())
+    // The feed is UTF-8 (sometimes with a BOM); older responses were UTF-16.
+    const text = buf[0] === 0xff && buf[1] === 0xfe ? buf.toString('utf16le') : buf.toString('utf8')
+    return { ok: res.ok, status: res.status, text }
+  } catch (err) {
+    return { ok: false, status: 0, text: '', error: String((err && err.message) || err) }
+  } finally {
+    clearTimeout(timer)
   }
 })
 

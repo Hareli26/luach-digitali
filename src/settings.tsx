@@ -60,6 +60,7 @@ export const DEFAULT_SETTINGS: Settings = {
   backdrop: { enabled: true, minutes: 5 },
   prayerArrow: null,
   power: { enabled: false, hours: Array(24).fill(true), shabbatAlwaysOn: true },
+  redAlert: { enabled: false, cities: [], holdMinutes: 10, shelterNote: '', feedUrl: '' },
   announcements: [
     { id: 'a1', title: 'שיעור הרב', body: 'שיעור בהלכה בכל יום שלישי בשעה 20:30 באולם המרכזי' },
     { id: 'a2', title: 'קידוש', body: 'הקידוש השבת בחסות משפחת כהן לרגל הולדת הבן' },
@@ -117,6 +118,7 @@ export function migrate(parsed: any): Settings {
     screenTimes: { ...base, ...(parsed.screenTimes || {}) },
     dedication: { ...DEFAULT_SETTINGS.dedication, ...(parsed.dedication || {}) },
     power: { ...DEFAULT_SETTINGS.power, ...(parsed.power || {}) },
+    redAlert: { ...DEFAULT_SETTINGS.redAlert, ...(parsed.redAlert || {}) },
     backdrop: { ...DEFAULT_SETTINGS.backdrop, ...(parsed.backdrop || {}) },
     screenDecor: { ...(parsed.screenDecor || {}) },
     // Text categories added later are switched on for existing boards too.

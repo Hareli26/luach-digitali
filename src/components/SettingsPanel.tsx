@@ -13,6 +13,8 @@ import { addImages, removeImage, useImages } from '../lib/images'
 import { migrate } from '../settings'
 import { PLACES, PLACE_NAMES } from '../lib/places'
 import { ARROW_LABELS, PrayerArrow } from './PrayerArrow'
+import { simulate } from '../lib/alerts'
+import type { FeedStatus } from '../hooks/useRedAlert'
 
 const CITIES: { name: string; lat: number; lng: number; elevation: number }[] = [
   { name: 'ירושלים', lat: 31.7781, lng: 35.2354, elevation: 754 },
@@ -31,7 +33,7 @@ const CITIES: { name: string; lat: number; lng: number; elevation: number }[] = 
   { name: 'לונדון', lat: 51.5074, lng: -0.1278, elevation: 11 },
 ]
 
-type Tab = 'location' | 'zmanim' | 'prayers' | 'holidays' | 'shiurim' | 'memorial' | 'announcements' | 'donors' | 'content' | 'screens' | 'display'
+type Tab = 'location' | 'zmanim' | 'prayers' | 'holidays' | 'shiurim' | 'memorial' | 'announcements' | 'donors' | 'content' | 'screens' | 'alerts' | 'display'
 
 const TABS: [Tab, string][] = [
   ['location', 'מיקום'],
@@ -44,10 +46,11 @@ const TABS: [Tab, string][] = [
   ['donors', 'תורמים והקדשה'],
   ['content', 'לימוד ותמונות'],
   ['screens', 'מסכים וזמנים'],
+  ['alerts', 'פיקוד העורף'],
   ['display', 'תצוגה וגיבוי'],
 ]
 
-export default function SettingsPanel({ onClose }: { onClose: () => void }) {
+export default function SettingsPanel({ onClose, feedStatus }: { onClose: () => void; feedStatus?: FeedStatus }) {
   const { settings, update, reset } = useSettings()
   const [tab, setTab] = useState<Tab>('location')
   const [geo, setGeo] = useState<{ text: string; kind: 'ok' | 'error' | 'busy' } | null>(null)
@@ -268,6 +271,8 @@ export default function SettingsPanel({ onClose }: { onClose: () => void }) {
           {tab === 'screens' && <ScreensEditor />}
 
           {tab === 'announcements' && <AnnouncementsEditor />}
+
+          {tab === 'alerts' && <RedAlertSettings status={feedStatus} />}
 
           {tab === 'display' && (
             <div className="set-section">
@@ -1161,6 +1166,83 @@ function ScreensEditor() {
           </label>
         </>
       )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------- red alert */
+
+function RedAlertSettings({ status }: { status?: FeedStatus }) {
+  const { settings, update } = useSettings()
+  const ra = settings.redAlert
+  const set = (patch: Partial<typeof ra>) => update({ redAlert: { ...ra, ...patch } })
+  // Typed as free text so a half-typed line is kept; saved as a clean list.
+  const [citiesText, setCitiesText] = useState(ra.cities.join('\n'))
+  const isElectron = !!(window as any).luach?.isElectron
+  const noCities = ra.enabled && !ra.cities.length
+
+  const statusText = !ra.enabled
+    ? 'כבוי'
+    : status?.state === 'error'
+      ? `אין קשר למקור ההתרעות כבר יותר מדקה${status.detail ? ` (${status.detail})` : ''}. בדקו את החיבור לאינטרנט. מקור ההתרעות של פיקוד העורף עונה בדרך כלל רק לחיבורים מישראל.`
+      : status?.lastOk
+        ? `מחובר. בדיקה אחרונה: ${new Date(status.lastOk).toLocaleTimeString('he-IL', { hour12: false })}`
+        : 'מתחבר…'
+
+  return (
+    <div className="set-section">
+      <label className="switch-row">
+        <input type="checkbox" checked={ra.enabled} onChange={(e) => set({ enabled: e.target.checked })} />
+        <span>להציג התרעות פיקוד העורף. בזמן התרעה באזור בית הכנסת הלוח כולו מתחלף בהודעת מרחב מוגן, וחוזר לעצמו בסיום האירוע, בלי שום מגע.</span>
+      </label>
+
+      <div className={status?.state === 'error' ? 'ra-status bad' : 'ra-status'} role="status">
+        מצב: {statusText}
+      </div>
+
+      <Field label="ישובים ואזורים" hint="שורה לכל ישוב, בכתיב של פיקוד העורף. שם עיר כולל את כל האזורים שלה: ״ירושלים״ כולל ״ירושלים - מרכז״. כדי להגביל לאזור אחד כתבו את שם האזור המלא.">
+        <textarea
+          rows={4}
+          value={citiesText}
+          placeholder={settings.locationName || 'ירושלים'}
+          onChange={(e) => {
+            setCitiesText(e.target.value)
+            set({ cities: e.target.value.split(/[\n,]/).map((x) => x.trim()).filter(Boolean) })
+          }}
+        />
+      </Field>
+      {noCities && <span className="field-error">לא הוגדר ישוב: הלוח לא יציג אף התרעה.</span>}
+
+      <Field label="מיקום המרחב המוגן" hint="מוצג על המסך בזמן התרעה. למשל: המקלט בקומת המרתף, הירידה ליד ארון הספרים.">
+        <input type="text" value={ra.shelterNote} onChange={(e) => set({ shelterNote: e.target.value })} />
+      </Field>
+
+      <Field
+        label="זמן המתנה בלי הודעת סיום (דקות)"
+        hint="פיקוד העורף שולח בדרך כלל הודעה ״האירוע הסתיים״ והלוח חוזר לעצמו מיד. אם לא הגיעה הודעה כזו, הלוח חוזר לתצוגה רגילה לאחר זמן זה מההתרעה האחרונה באזור."
+      >
+        <input type="number" min={1} max={60} value={ra.holdMinutes} onChange={(e) => set({ holdMinutes: Math.min(60, Math.max(1, Number(e.target.value) || 10)) })} />
+      </Field>
+
+      <Field
+        label="כתובת מקור חלופית (לא חובה)"
+        hint={isElectron ? 'השאירו ריק כדי להתחבר ישירות לפיקוד העורף. כתובת שמחזירה את אותו מבנה JSON משמשת לממסר, למשל ללוח מחוץ לישראל.' : 'בדפדפן רגיל אין גישה ישירה לפיקוד העורף. השאירו ריק בזמן פיתוח (npm run dev), או הזינו כתובת ממסר שמחזירה את אותו מבנה JSON. בתוכנת הלוח (קיוסק) החיבור ישיר.'}
+      >
+        <input type="url" dir="ltr" value={ra.feedUrl} placeholder="https://…" onChange={(e) => set({ feedUrl: e.target.value.trim() })} />
+      </Field>
+
+      <h3 className="set-sub">הדמיה</h3>
+      <div className="hint">בודקת את התצוגה בלי התרעה אמיתית. על המסך מופיע ״הדמיה״. עובדת גם כשההתרעות כבויות. Esc מפסיק אותה.</div>
+      <div className="ra-sim-row">
+        <button type="button" className="ghost-btn" onClick={() => simulate('full')}>תרחיש מלא (כדקה)</button>
+        <button type="button" className="ghost-btn" onClick={() => simulate('early')}>התרעה מקדימה</button>
+        <button type="button" className="ghost-btn" onClick={() => simulate('alert')}>אזעקה</button>
+        <button type="button" className="ghost-btn" onClick={() => simulate('end')}>סיום אירוע</button>
+        <button type="button" className="ghost-btn" onClick={() => simulate('stop')}>עצירה</button>
+      </div>
+      <div className="hint">
+        אפשר גם לפתוח את הלוח עם <code>?simulate=full</code> בכתובת.
+      </div>
     </div>
   )
 }

@@ -1000,3 +1000,41 @@
 .place-credits summary { cursor: pointer; color: var(--gold-bright); font-weight: 600; }
 .place-credits ul { margin-top: 8px; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 4px; }
 .place-credits-name { color: var(--ink); font-weight: 600; }
+
+/* ---- Home Front Command alert takeover ----
+   Fixed colours, not theme tokens: the notice must look the same, and read the same, on every theme.
+   White on deep red / amber / green keeps contrast above 7:1. */
+.red-alert {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: clamp(20px, 3vw, 48px);
+  color: #fff; font-family: var(--font-sans); text-align: center;
+  cursor: none; user-select: none;
+  animation: fadeIn 0.3s both;
+}
+.ra-alert { background: radial-gradient(ellipse at center, #c4111b 0%, #8e0710 70%, #5c0309 100%); box-shadow: inset 0 0 0 clamp(8px, 1vw, 16px) #ff3b3b; animation: fadeIn 0.3s both, raEdge 2.4s ease-in-out infinite; }
+.ra-early { background: radial-gradient(ellipse at center, #9a4a00 0%, #6e3300 75%, #4a2200 100%); box-shadow: inset 0 0 0 clamp(6px, 0.8vw, 12px) #ffb347; }
+.ra-clear { background: radial-gradient(ellipse at center, #13703f 0%, #0c4f2c 75%, #08361e 100%); box-shadow: inset 0 0 0 clamp(6px, 0.8vw, 12px) #5ee39a; }
+@keyframes raEdge { 0%, 100% { box-shadow: inset 0 0 0 clamp(8px, 1vw, 16px) #ff3b3b; } 50% { box-shadow: inset 0 0 0 clamp(8px, 1vw, 16px) #ff8a8a; } }
+
+.ra-top { display: flex; justify-content: space-between; align-items: center; font-size: clamp(18px, 1.8vw, 30px); font-weight: 700; opacity: 0.95; }
+.ra-source { display: flex; align-items: center; gap: 16px; }
+.ra-sim { background: #fff; color: #111; padding: 4px 14px; border-radius: 999px; font-size: 0.8em; }
+.ra-clock { font-variant-numeric: tabular-nums; font-size: clamp(28px, 3vw, 52px); }
+
+.ra-body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 20px); min-height: 0; }
+.ra-icon { width: clamp(72px, 9vw, 150px); height: auto; }
+.ra-heading { font-size: clamp(44px, 7vw, 128px); font-weight: 900; line-height: 1.05; margin: 0; letter-spacing: -0.01em; }
+.ra-action { font-size: clamp(30px, 4.4vw, 80px); font-weight: 800; margin: 0; line-height: 1.15; }
+.ra-detail { font-size: clamp(20px, 2.4vw, 42px); font-weight: 500; margin: 0; opacity: 0.95; max-width: 80vw; }
+.ra-shelter { margin-top: clamp(6px, 1.5vh, 22px); background: rgba(0, 0, 0, 0.28); border: 2px solid rgba(255, 255, 255, 0.55); border-radius: var(--radius); padding: clamp(10px, 1.4vw, 22px) clamp(18px, 2.4vw, 40px); display: flex; flex-direction: column; gap: 4px; max-width: 80vw; }
+.ra-shelter-label { font-size: clamp(16px, 1.5vw, 26px); font-weight: 600; opacity: 0.85; }
+.ra-shelter-text { font-size: clamp(24px, 2.8vw, 50px); font-weight: 800; }
+.ra-cities { font-size: clamp(18px, 2vw, 34px); font-weight: 600; margin: 0; opacity: 0.9; max-width: 86vw; }
+.ra-foot { font-size: clamp(16px, 1.6vw, 28px); font-weight: 500; opacity: 0.9; font-variant-numeric: tabular-nums; }
+
+/* Settings: alerts tab */
+.ra-status { padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--bg-1); color: var(--ink-dim); font-size: 15px; line-height: 1.5; }
+.ra-status.bad { border-color: var(--warn); color: var(--warn); }
+.ra-sim-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.strip-alert-off { color: var(--warn); font-size: clamp(13px, 1vw, 17px); margin-inline-start: 12px; }

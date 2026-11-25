@@ -147,6 +147,20 @@ export interface Settings {
   prayerArrow: number | null
   /** Display on/off by hour */
   power: { enabled: boolean; hours: boolean[]; shabbatAlwaysOn: boolean }
+  /** Home Front Command alerts for the shul's area: the board shows a full-screen shelter notice */
+  redAlert: RedAlertSettings
+}
+
+export interface RedAlertSettings {
+  enabled: boolean
+  /** City or area names exactly as Home Front Command writes them; a city name also covers its areas */
+  cities: string[]
+  /** Minutes after the last alert, with no official end message, before the board returns to its screens */
+  holdMinutes: number
+  /** Where the shul's protected space is, shown during an alert */
+  shelterNote: string
+  /** Optional relay URL that returns the same JSON as the feed (e.g. for boards outside Israel). Empty = the official feed. */
+  feedUrl: string
 }
 
 export const NUSACH_LABELS: Record<Nusach, string> = {
